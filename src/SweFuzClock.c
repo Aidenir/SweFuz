@@ -1,19 +1,106 @@
 #include "SweFuzClock.h"
+#include <pebble.h>
+
+#define DEBUG true
+
 
 void FuzTime_create(FuzTime* ft, const struct tm* tim)
+{
+	SetNumLines(ft,tim);
+	SetFirstLine(ft,tim);
+	SetSecondLine(ft,tim);
+	#ifdef DEBUG
+  	APP_LOG(APP_LOG_LEVEL_DEBUG, "Time: %d:%d makes %d lines", tim->tm_hour,tim->tm_min,ft->lines);
+  	LogFuzTime(ft);
+  	#endif
+}
+
+void SetFirstLine(FuzTime* ft, const struct tm* tim)
+{
+	int min = tim->tm_min;
+	if (min < 3 || min > 57)								//	"klockan"
+	{
+		strcat(ft->lineOne, strings[19]);
+	}
+	else if(min < 7 || min > 53 || 
+			(min > 23 && min < 27) || 
+			(min > 33 && min < 37) )						//	"fem"
+	{
+		strcat(ft->lineOne, strings[5]);
+	}
+	else if(min < 13 || min > 47)							//	"tio"
+	{
+		strcat(ft->lineOne, strings[10]);
+	}
+	else if(min < 17 || min > 43)							//	"kvart"
+	{
+		strcat(ft->lineOne,strings[15]);
+	}
+	else if(min < 23 || min > 37)							//	"tjugo"
+	{
+		strcat(ft->lineOne,strings[16]);
+	}
+	else if(min < 33 || min > 27)							//	"halv"
+	{
+		strcat(ft->lineOne,strings[14]);
+	}
+	else
+	{
+		strcat(ft->lineOne, "fail with the first line");
+	}
+}
+
+void SetSecondLine(FuzTime* ft, const struct tm* tim)
+{
+	int min = tim->tm_min;
+	if (min < 3 || min > 57)								//	"är"
+	{
+		strcat(ft->lineTwo,strings[20]);
+	}
+	else if(min < 23)										//	"över"
+	{
+		strcat(ft->lineTwo, strings[18]);
+	}
+	else
+	{
+		strcat(ft->lineTwo, "Failed to set the second line");
+	}
+}
+
+void SetThirdLine(FuzTime* ft, const struct tm* tim)
 {
 
 }
 
-int GetNumLines(const struct tm* time)
+void SetFourthLine(FuzTime* ft, const struct tm* tim)
 {
-	if(time->tm_min > 37 || time->tm_min < 23)
+
+}
+
+void SetNumLines(FuzTime *ft, const struct tm* time)
+{
+	if(time->tm_min >= 33 || time->tm_min < 27)
 	{
-		return 3;
+		ft->lines = 3;
+		return;
 	}
-	if(time->tm_min > 33 || time->tm_min < 27)
+	if(time->tm_min < 33)
 	{
-		return 4;		//"fem i/over halv XX"
+		ft->lines =  4;		//"fem over halv XX"
+		return;
 	}
-	return 2;			//"halv XX"
+	ft->lines = 2;			//"halv XX"
+	return;
+}
+
+void LogFuzTime(FuzTime* ft)
+{
+	if (ft->lines > 1)
+		APP_LOG(APP_LOG_LEVEL_DEBUG, ft->lineOne);
+	if (ft->lines > 2)
+		APP_LOG(APP_LOG_LEVEL_DEBUG, ft->lineTwo);
+	if (ft->lines > 3)
+		APP_LOG(APP_LOG_LEVEL_DEBUG, ft->lineThree);
+	if (ft->lines > 4)
+		APP_LOG(APP_LOG_LEVEL_DEBUG, ft->lineFour);
 }

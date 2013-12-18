@@ -6,7 +6,7 @@
   "versionCode": 1,
   "versionLabel": "o.1",
   "watchapp": {
-    "watchface": true
+    "watchface": false
   },
   "appKeys": {
     "dummy": 0

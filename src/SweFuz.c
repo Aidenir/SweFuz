@@ -2,8 +2,20 @@
 #include <time.h>
 #include "SweFuzClock.h"
 
+
 static Window *window;
 static TextLayer *text_layer;
+
+
+/*
+########  ##     ## ######## ########  #######  ##    ##  ######  
+##     ## ##     ##    ##       ##    ##     ## ###   ## ##    ## 
+##     ## ##     ##    ##       ##    ##     ## ####  ## ##       
+########  ##     ##    ##       ##    ##     ## ## ## ##  ######  
+##     ## ##     ##    ##       ##    ##     ## ##  ####       ## 
+##     ## ##     ##    ##       ##    ##     ## ##   ### ##    ## 
+########   #######     ##       ##     #######  ##    ##  ######
+*/
 
 static void select_click_handler(ClickRecognizerRef recognizer, void *context) {
   text_layer_set_text(text_layer, "Select");
@@ -22,6 +34,16 @@ static void click_config_provider(void *context) {
   window_single_click_subscribe(BUTTON_ID_UP, up_click_handler);
   window_single_click_subscribe(BUTTON_ID_DOWN, down_click_handler);
 }
+
+/*
+##      ## #### ##    ## ########   #######  ##      ## 
+##  ##  ##  ##  ###   ## ##     ## ##     ## ##  ##  ## 
+##  ##  ##  ##  ####  ## ##     ## ##     ## ##  ##  ## 
+##  ##  ##  ##  ## ## ## ##     ## ##     ## ##  ##  ## 
+##  ##  ##  ##  ##  #### ##     ## ##     ## ##  ##  ## 
+##  ##  ##  ##  ##   ### ##     ## ##     ## ##  ##  ## 
+ ###  ###  #### ##    ## ########   #######   ###  ###  
+*/
 
 static void window_load(Window *window) {
   Layer *window_layer = window_get_root_layer(window);
@@ -52,12 +74,26 @@ static void deinit(void) {
   window_destroy(window);
 }
 
+/*
+##     ##    ###    #### ##    ## 
+###   ###   ## ##    ##  ###   ## 
+#### ####  ##   ##   ##  ####  ## 
+## ### ## ##     ##  ##  ## ## ## 
+##     ## #########  ##  ##  #### 
+##     ## ##     ##  ##  ##   ### 
+##     ## ##     ## #### ##    ## 
+*/
+
 int main(void) {
   init();
 
   FuzTime* ft = (FuzTime*)malloc(sizeof(FuzTime));
   time_t now = time(NULL);
-  struct tm* tim = localtime(&now);
+  //struct tm* tim = localtime(&now);
+  struct tm* tim = (struct tm*)malloc(sizeof(struct tm*));
+  tim->tm_hour = 10;
+  tim->tm_min = 15;
+  
   FuzTime_create(ft, tim);
 
   APP_LOG(APP_LOG_LEVEL_DEBUG, "Done initializing, pushed window: %p", window);
