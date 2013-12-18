@@ -1,0 +1,35 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "."
+		}
+	],
+
+	"build_systems":
+    [
+        {
+            "name": "Pebble build",
+            "cmd": [ "pebble build" ],
+            "working_dir": "$project_path",
+            "shell" : true,
+            "file_regex": "([^\n:]+):(\\d+):",
+            "path" : "$PATH:~/Dropbox/Mina Dokument/Programmering/Pebble/SDK_2.0/PebbleSDK-2.0-BETA3/bin",
+            "variants": [
+            	{	
+           			"cmd": [ "pebble install --phone 192.168.0.154"],
+                    "working_dir": "$project_path",
+                    "shell" : true,
+            		"name" : "Install"
+            	},
+            	{	
+           			"cmd": [ "pebble clean"],
+                    "working_dir": "$project_path",
+                    "shell" : true,
+            		"name" : "Clean"
+            	}
+            ]
+        }
+    ],
+}

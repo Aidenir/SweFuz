@@ -1,0 +1,17 @@
+{
+  "uuid": "25889ba0-22b2-44db-a5fb-d56e9384e8ce",
+  "shortName": "SweFuz",
+  "longName": "SweFuz",
+  "companyName": "ApparatAppverkstad",
+  "versionCode": 1,
+  "versionLabel": "o.1",
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
