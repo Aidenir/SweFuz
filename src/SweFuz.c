@@ -91,8 +91,8 @@ int main(void) {
   time_t now = time(NULL);
   //struct tm* tim = localtime(&now);
   struct tm* tim = (struct tm*)malloc(sizeof(struct tm*));
-  tim->tm_hour = 10;
-  tim->tm_min = 15;
+  tim->tm_hour = 9;
+  tim->tm_min = 18;
   
   FuzTime_create(ft, tim);
 

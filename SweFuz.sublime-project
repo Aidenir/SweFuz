@@ -21,7 +21,7 @@
            			"cmd": [ "pebble install --phone 192.168.0.154"],
                     "working_dir": "$project_path",
                     "shell" : true,
-            		"name" : "Install"
+            		"name" : "Run"
             	},
             	{	
            			"cmd": [ "pebble clean"],

@@ -4,7 +4,7 @@
 */
 #include <time.h>
 
-#define lineSize 7
+#define lineSize 8		//Longest string is 7 so I guess the eight is \0 or something?
 
 typedef struct FuzTime
 {
@@ -16,29 +16,33 @@ typedef struct FuzTime
 }FuzTime;
 
 ///The strings which are used
+// static const char* strings[] = {
+//     "tolv",
+//     "ett",
+//     "två",
+//     "tre",
+//     "fyra",
+//     "fem",
+//     "sex",
+//     "sju",
+//     "åtta",
+//     "nio",
+//     "tio",
+//     "elva",
+//     "tolv",
+//     "ett",
+//     "halv",
+//     "kvart",
+//     "tjugo",
+//     "i",
+//     "över",
+//     "klockan",
+//     "är",
+//     "i halv"
+// };
 static const char* strings[] = {
-    "tolv",
-    "ett",
-    "två",
-    "tre",
-    "fyra",
-    "fem",
-    "sex",
-    "sju",
-    "åtta",
-    "nio",
-    "tio",
-    "elva",
-    "tolv",
-    "ett",
-    "halv",
-    "kvart",
-    "tjugo",
-    "i",
-    "över",
-    "klockan",
-    "är"
-};
+    "tolv", "ett", "tva", "tre", "fyra", "fem", "sex", "sju", "atta", "nio", "tio", "elva", "tolv", "ett", "halv", "kvart", "tjugo", "i", "over", "klockan", "ar","i halv"};
+
 
 
 ///Takes a tm struct and fills the members with the correct data
