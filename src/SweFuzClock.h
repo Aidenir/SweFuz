@@ -9,10 +9,10 @@
 typedef struct FuzTime
 {
 	int lines;		//How many lines the current time requires
-	char 	lineOne[lineSize],
-			lineTwo[lineSize],
-			lineThree[lineSize],
-			lineFour[lineSize];
+	char			*lineOne,
+					*lineTwo,
+					*lineThree,
+					*lineFour;
 }FuzTime;
 
 ///The strings which are used
@@ -47,6 +47,8 @@ static const char* strings[] = {
 
 ///Takes a tm struct and fills the members with the correct data
 void FuzTime_create(FuzTime* ft, const struct tm* tim);
+///Frees all the pointers
+void FuzTime_destroy(FuzTime* ft);
 
 ///Sets the string for the first line
 void SetFirstLine(FuzTime* ft, const struct tm* tim);

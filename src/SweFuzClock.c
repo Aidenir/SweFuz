@@ -7,20 +7,39 @@
 void FuzTime_create(FuzTime* ft, const struct tm* tim)
 {
 	SetNumLines(ft,tim);
+	ft->lineOne = (char*)malloc(sizeof(char*)*lineSize);
 	SetFirstLine(ft,tim);
+	ft->lineTwo = (char*)malloc(sizeof(char*)*lineSize);
 	SetSecondLine(ft,tim);
 	if (ft->lines > 2)
 	{
+		ft->lineThree = (char*)malloc(sizeof(char*)*lineSize);
 		SetThirdLine(ft,tim);
 	}
 	if (ft->lines > 3)
 	{
+		ft->lineFour = (char*)malloc(sizeof(char*)*lineSize);
 		SetFourthLine(ft,tim);
 	}
+
 	#ifdef DEBUG
   	APP_LOG(APP_LOG_LEVEL_DEBUG, "Time: %d:%d makes %d lines", tim->tm_hour,tim->tm_min,ft->lines);
   	LogFuzTime(ft);
   	#endif
+}
+
+void FuzTime_destroy(FuzTime* ft)
+{
+	free(ft->lineOne);
+	free(ft->lineTwo);
+	if (ft->lines > 2)
+	{
+		free(ft->lineThree);
+	}
+	if (ft->lines > 3)
+	{
+		free(ft->lineFour);
+	}
 }
 
 void SetFirstLine(FuzTime* ft, const struct tm* tim)
