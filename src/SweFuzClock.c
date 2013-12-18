@@ -13,6 +13,10 @@ void FuzTime_create(FuzTime* ft, const struct tm* tim)
 	{
 		SetThirdLine(ft,tim);
 	}
+	if (ft->lines > 3)
+	{
+		SetFourthLine(ft,tim);
+	}
 	#ifdef DEBUG
   	APP_LOG(APP_LOG_LEVEL_DEBUG, "Time: %d:%d makes %d lines", tim->tm_hour,tim->tm_min,ft->lines);
   	LogFuzTime(ft);
@@ -87,15 +91,15 @@ void SetThirdLine(FuzTime* ft, const struct tm* tim)
 {
 	int min = tim->tm_min;
 	int hour = tim->tm_hour;
-	if (min < 37 && min > 33)								//	"över"
+	if (min < 37 && min > 33)								//	"halv"
 	{
-		strcat(ft->lineThree, strings[18]);
+		strcat(ft->lineThree, strings[14]);
 	}
-	else if (min < 23)												//	the hour
+	else if (min < 23)										//	the hour
 	{
 		strcat(ft->lineThree, strings[hour]);
 	}
-	else if (min > 23)											//	one hour more thatn the current one
+	else if (min > 23)										//	one hour more thatn the current one
 	{
 		strcat(ft->lineThree, strings[hour+1]);
 	}
@@ -108,19 +112,19 @@ void SetThirdLine(FuzTime* ft, const struct tm* tim)
 
 void SetFourthLine(FuzTime* ft, const struct tm* tim)
 {
-
+	strcat(ft->lineFour,strings[tim->tm_hour + 1]);
 }
 
 void SetNumLines(FuzTime *ft, const struct tm* time)
 {
-	if(time->tm_min > 33 || time->tm_min < 27)
-	{
-		ft->lines = 3;
-		return;
-	}
 	if(time->tm_min < 37 && time->tm_min > 33)
 	{
 		ft->lines =  4;		//"fem over halv XX"
+		return;
+	}
+	if(time->tm_min > 33 || time->tm_min < 27)
+	{
+		ft->lines = 3;
 		return;
 	}
 	ft->lines = 2;			//"halv XX"
