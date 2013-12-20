@@ -18,7 +18,7 @@
             "path" : "$PATH:~/Dropbox/Mina Dokument/Programmering/Pebble/SDK_2.0/PebbleSDK-2.0-BETA3/bin",
             "variants": [
             	{	
-           			"cmd": [ "pebble install --phone 192.168.0.154"],
+           			"cmd": [ "pebble install --phone 192.168.0.191"],
                     "working_dir": "$project_path",
                     "shell" : true,
             		"name" : "Run"

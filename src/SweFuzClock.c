@@ -7,6 +7,7 @@
 void FuzTime_create(FuzTime* ft, const struct tm* tim)
 {
 	SetNumLines(ft,tim);
+
 	ft->lineOne = (char*)malloc(sizeof(char*)*lineSize);
 	SetFirstLine(ft,tim);
 	ft->lineTwo = (char*)malloc(sizeof(char*)*lineSize);
@@ -110,6 +111,7 @@ void SetThirdLine(FuzTime* ft, const struct tm* tim)
 {
 	int min = tim->tm_min;
 	int hour = tim->tm_hour;
+	hour = ( hour > 12 ) ? hour - 12 : hour;
 	if (min < 37 && min > 33)								//	"halv"
 	{
 		strcat(ft->lineThree, strings[14]);
@@ -122,7 +124,6 @@ void SetThirdLine(FuzTime* ft, const struct tm* tim)
 	{
 		strcat(ft->lineThree, strings[hour+1]);
 	}
-
 	else
 	{
 		strcat(ft->lineThree, "Fail line three");
@@ -131,7 +132,8 @@ void SetThirdLine(FuzTime* ft, const struct tm* tim)
 
 void SetFourthLine(FuzTime* ft, const struct tm* tim)
 {
-	strcat(ft->lineFour,strings[tim->tm_hour + 1]);
+	int hour = ( tim->tm_hour > 12 ) ? tim->tm_hour - 12 : tim->tm_hour;
+	strcat(ft->lineFour,strings[hour + 1]);
 }
 
 void SetNumLines(FuzTime *ft, const struct tm* time)
